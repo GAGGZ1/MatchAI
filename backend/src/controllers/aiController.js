@@ -1,25 +1,20 @@
 const Profile = require("../models/Profile");
 const {
   generateCompatibility,
-    generateIntroMessage,
+  generateIntroMessage,
 } = require("../services/groqService");
 
-exports.compatibility = async (
-  req,
-  res
-) => {
+exports.compatibility = async (req, res) => {
   try {
     const { targetUserId } = req.body;
 
-    const myProfile =
-      await Profile.findOne({
-        userId: req.user.id,
-      });
+    const myProfile = await Profile.findOne({
+      userId: req.user.id,
+    });
 
-    const targetProfile =
-      await Profile.findOne({
-        userId: targetUserId,
-      });
+    const targetProfile = await Profile.findOne({
+      userId: targetUserId,
+    });
 
     if (!myProfile || !targetProfile) {
       return res.status(404).json({
@@ -27,21 +22,16 @@ exports.compatibility = async (
       });
     }
 
-    const result =
-  await generateCompatibility(
-    myProfile,
-    targetProfile
-  );
+    const result = await generateCompatibility(myProfile, targetProfile);
 
-console.log(result);
+    console.log(result);
 
-const cleaned = result
-  .replace(/```json/g, "")
-  .replace(/```/g, "")
-  .trim();
+    const cleaned = result
+      .replace(/```json/g, "")
+      .replace(/```/g, "")
+      .trim();
 
-res.json(JSON.parse(cleaned));
-
+    res.json(JSON.parse(cleaned));
   } catch (error) {
     res.status(500).json({
       message: error.message,
@@ -49,54 +39,35 @@ res.json(JSON.parse(cleaned));
   }
 };
 
-exports.generateIntro = async (
-  req,
-  res
-) => {
+exports.generateIntro = async (req, res) => {
   try {
+    const { targetUserId } = req.body;
 
-    const { targetUserId } =
-      req.body;
+    const myProfile = await Profile.findOne({
+      userId: req.user.id,
+    });
 
-    const myProfile =
-      await Profile.findOne({
-        userId: req.user.id,
-      });
+    const targetProfile = await Profile.findOne({
+      userId: targetUserId,
+    });
 
-    const targetProfile =
-      await Profile.findOne({
-        userId: targetUserId,
-      });
-
-    if (
-      !myProfile ||
-      !targetProfile
-    ) {
+    if (!myProfile || !targetProfile) {
       return res.status(404).json({
         message: "Profile not found",
       });
     }
 
-    const result =
-      await generateIntroMessage(
-        myProfile,
-        targetProfile
-      );
+    const result = await generateIntroMessage(myProfile, targetProfile);
 
     const cleaned = result
       .replace(/```json/g, "")
       .replace(/```/g, "")
       .trim();
 
-    res.json(
-      JSON.parse(cleaned)
-    );
-
+    res.json(JSON.parse(cleaned));
   } catch (error) {
-
     res.status(500).json({
       message: error.message,
     });
-
   }
 };
