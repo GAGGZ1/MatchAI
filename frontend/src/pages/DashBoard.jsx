@@ -13,6 +13,7 @@ function Dashboard() {
   const [intro, setIntro] = useState(null);
   const [aiLoading, setAiLoading] = useState(false);
   const [introLoading, setIntroLoading] = useState(false);
+  const [sentMatch, setSentMatch] = useState(null);
 
   const navigate = useNavigate();
 
@@ -29,9 +30,7 @@ function Dashboard() {
       setMatches(res.data.data || []);
     } catch (error) {
       console.error(error);
-     toast.error(
-  "Failed to load matches"
-);
+      toast.error("Failed to load matches");
     } finally {
       setLoading(false);
     }
@@ -81,7 +80,7 @@ function Dashboard() {
       console.log(error);
     }
   };
-  const sendMatch = async (userId) => {
+  const sendMatch = async (userId, profileData) => {
     try {
       setIntroLoading(true);
 
@@ -89,21 +88,37 @@ function Dashboard() {
         targetUserId: userId,
       });
 
+      // Store match data for modal display
+      setSentMatch({
+        profile: profileData,
+        message: res.data.message,
+        userId: userId,
+      });
+
+      // Show match sending confirmation with profile info
+      const matchInfo = `✅ Match Sent Successfully!\n\n📧 To: ${profileData.firstName} ${profileData.lastName}\n📍 ${profileData.city}, ${profileData.state}\n💼 ${profileData.profession}\n🎂 Age ${profileData.age}\n❤️ Goal: ${profileData.relationshipGoal}`;
+
+      toast.success(matchInfo, {
+        position: "top-right",
+        autoClose: 5000,
+      });
+
       setIntro(res.data);
     } catch (error) {
       console.log(error);
+      toast.error("Failed to send match");
     } finally {
       setIntroLoading(false);
     }
   };
 
   if (loading) {
-  return (
-    <>
-      <Navbar />
+    return (
+      <>
+        <Navbar />
 
-      <div
-        className="
+        <div
+          className="
           min-h-screen
           bg-gradient-to-br
           from-pink-50
@@ -114,9 +129,9 @@ function Dashboard() {
           items-center
           justify-center
         "
-      >
-        <div
-          className="
+        >
+          <div
+            className="
             w-16
             h-16
             border-4
@@ -125,30 +140,30 @@ function Dashboard() {
             rounded-full
             animate-spin
           "
-        />
+          />
 
-        <h2
-          className="
+          <h2
+            className="
             text-3xl
             font-bold
             mt-6
           "
-        >
-          Finding Your Matches ❤️
-        </h2>
+          >
+            Finding Your Matches ❤️
+          </h2>
 
-        <p
-          className="
+          <p
+            className="
             text-gray-500
             mt-2
           "
-        >
-          AI is analyzing compatibility...
-        </p>
-      </div>
-    </>
-  );
-}
+          >
+            AI is analyzing compatibility...
+          </p>
+        </div>
+      </>
+    );
+  }
 
   return (
     <>
@@ -300,9 +315,7 @@ function Dashboard() {
               <div className="flex gap-3 flex-wrap mt-4">
                 <button
                   onClick={() =>
-                  navigate(
-  `/profile-details/${match.profile.userId._id}`
-)
+                    navigate(`/profile-details/${match.profile.userId._id}`)
                   }
                   className="
       bg-gray-800
@@ -356,7 +369,7 @@ function Dashboard() {
                 </button>
 
                 <button
-                  onClick={() => sendMatch(match.profile.userId)}
+                  onClick={() => sendMatch(match.profile.userId, match.profile)}
                   disabled={introLoading}
                   className="
     bg-purple-500
@@ -366,7 +379,7 @@ function Dashboard() {
     rounded-lg
   "
                 >
-                  {introLoading ? "Generating..." : "AI Intro"}
+                  {introLoading ? "Sending..." : "📧 Send Match"}
                 </button>
               </div>{" "}
             </div>
@@ -378,6 +391,75 @@ function Dashboard() {
           onClose={() => setCompatibility(null)}
         />
         <IntroModal data={intro} onClose={() => setIntro(null)} />
+
+        {/* Match Sent Confirmation Modal */}
+        {sentMatch && (
+          <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+            <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl">
+              <h2 className="text-2xl font-bold mb-4 text-pink-600">
+                📧 Match Sent!
+              </h2>
+
+              <div className="mb-6">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-full bg-pink-100 flex items-center justify-center text-xl">
+                    👤
+                  </div>
+                  <div>
+                    <p className="font-bold">
+                      {sentMatch.profile.firstName} {sentMatch.profile.lastName}
+                    </p>
+                    <p className="text-gray-500 text-sm">
+                      {sentMatch.profile.profession}
+                    </p>
+                  </div>
+                </div>
+
+                <div className="bg-gray-50 rounded-lg p-4 mb-4 space-y-2">
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">📍 Location:</span>
+                    <span className="font-semibold">
+                      {sentMatch.profile.city}, {sentMatch.profile.state}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">🎂 Age:</span>
+                    <span className="font-semibold">
+                      {sentMatch.profile.age}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">❤️ Looking for:</span>
+                    <span className="font-semibold">
+                      {sentMatch.profile.relationshipGoal}
+                    </span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-gray-600">📚 Education:</span>
+                    <span className="font-semibold">
+                      {sentMatch.profile.highestEducation}
+                    </span>
+                  </div>
+                </div>
+
+                <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                  <p className="text-sm text-blue-700">
+                    ✨ A personalized introduction has been sent via email with
+                    your profile information and a custom message highlighting
+                    your compatibility!
+                  </p>
+                </div>
+              </div>
+
+              <button
+                onClick={() => setSentMatch(null)}
+                className="w-full bg-pink-500 text-white py-2 rounded-lg font-semibold hover:bg-pink-600 transition"
+              >
+                Continue Browsing
+              </button>
+            </div>
+          </div>
+        )}
       </div>
     </>
   );
