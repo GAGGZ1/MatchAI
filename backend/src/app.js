@@ -3,7 +3,7 @@ const cors = require("cors");
 
 const authRoutes = require("./routes/authRoutes");
 const profileRoutes = require("./routes/profileRoutes");
-const matchRoutes = require("./routes/matchRoutes");
+const matchRoutes = require("./routes/matchroutes");
 const likeRoutes = require("./routes/likeRoutes");
 const aiRoutes = require("./routes/aiRoutes");
 
