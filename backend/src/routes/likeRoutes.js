@@ -5,10 +5,7 @@ const router = require("express").Router();
 
 const auth = require("../middleware/authMiddleware");
 
-const {
-  likeUser,
-  passUser
-} = require("../controllers/likeController");
+const { likeUser, passUser } = require("../controllers/likeController");
 
 router.post("/", auth, likeUser);
 

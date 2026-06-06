@@ -9,10 +9,6 @@ const {
 
 router.get("/", auth, getRecommendations);
 
-router.get(
-  "/connections",
-  auth,
-  getConnections
-);
+router.get("/connections", auth, getConnections);
 
 module.exports = router;
