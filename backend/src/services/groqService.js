@@ -4,10 +4,7 @@ const groq = new Groq({
   apiKey: process.env.GROQ_API_KEY,
 });
 
-const generateCompatibility = async (
-  profileA,
-  profileB
-) => {
+const generateCompatibility = async (profileA, profileB) => {
   const prompt = `
 Analyze compatibility between these two Indian dating profiles.
 
@@ -42,26 +39,21 @@ Example:
 }
 `;
 
-  const completion =
-    await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      temperature: 0.7,
-    });
+  const completion = await groq.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
+    messages: [
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+    temperature: 0.7,
+  });
 
   return completion.choices[0].message.content;
 };
 
-const generateIntroMessage = async (
-  profileA,
-  profileB
-) => {
-
+const generateIntroMessage = async (profileA, profileB) => {
   const prompt = `
 Generate a personalized first introduction message.
 
@@ -84,26 +76,21 @@ Return ONLY JSON
 }
 `;
 
-  const completion =
-    await groq.chat.completions.create({
-      model: "llama-3.3-70b-versatile",
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-      temperature: 0.8,
-    });
+  const completion = await groq.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
+    messages: [
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+    temperature: 0.8,
+  });
 
   return completion.choices[0].message.content;
 };
 
-const getCompatibilityScore = async (
-  profileA,
-  profileB
-) => {
-
+const getCompatibilityScore = async (profileA, profileB) => {
   const prompt = `
 Analyze compatibility between
 two Indian matrimonial profiles.
@@ -121,22 +108,18 @@ Profile B:
 ${JSON.stringify(profileB)}
 `;
 
-  const completion =
-    await groq.chat.completions.create({
-      model:
-        "llama-3.3-70b-versatile",
+  const completion = await groq.chat.completions.create({
+    model: "llama-3.3-70b-versatile",
 
-      messages: [
-        {
-          role: "user",
-          content: prompt,
-        },
-      ],
-    });
+    messages: [
+      {
+        role: "user",
+        content: prompt,
+      },
+    ],
+  });
 
-  const result =
-    completion.choices[0]
-      .message.content;
+  const result = completion.choices[0].message.content;
 
   const cleaned = result
     .replace(/```json/g, "")
