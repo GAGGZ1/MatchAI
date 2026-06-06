@@ -1,6 +1,6 @@
-const Like = require("../models/Like");
+const Like = require("../models/like");
 const Match = require("../models/match");
-const Pass = require("../models/Pass");
+const Pass = require("../models/pass");
 
 exports.likeUser = async (req, res) => {
   try {
