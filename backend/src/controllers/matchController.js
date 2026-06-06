@@ -1,4 +1,4 @@
-const Profile = require("../models/Profile");
+const Profile = require("../models/profile");
 const Match = require("../models/Match");
 const Pass = require("../models/Pass");
 const Like = require("../models/Like");
