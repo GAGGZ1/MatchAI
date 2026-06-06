@@ -9,7 +9,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import ProfileSetup from "./pages/ProfileSetup";
-import Dashboard from "./pages/Dashboard";
+import Dashboard from "./pages/DashBoard";
 import ProfileDetails from "./pages/ProfileDetails";
 import Connections from "./pages/Connections";
 
