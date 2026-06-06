@@ -1,4 +1,4 @@
-const Profile = require("../models/Profile");
+const Profile = require("../models/profile");
 
 exports.createProfile = async (req, res) => {
   const profile = await Profile.findOneAndUpdate(
