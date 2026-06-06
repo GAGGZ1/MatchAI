@@ -4,20 +4,17 @@ const likeSchema = new mongoose.Schema(
   {
     fromUser: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
+      ref: "User",
     },
 
     toUser: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User"
-    }
+      ref: "User",
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
-module.exports = mongoose.model(
-  "Like",
-  likeSchema
-);
+module.exports = mongoose.model("Like", likeSchema);

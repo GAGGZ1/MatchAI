@@ -5,7 +5,7 @@ const profileSchema = new mongoose.Schema(
     userId: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: true
+      required: true,
     },
 
     firstName: String,
@@ -41,23 +41,23 @@ const profileSchema = new mongoose.Schema(
     familyType: {
       type: String,
       enum: ["Nuclear", "Joint", "No Preference"],
-      default: "No Preference"
+      default: "No Preference",
     },
     siblingsCount: Number,
 
     wantsChildren: {
       type: Boolean,
-      default: true
+      default: true,
     },
 
     openToRelocate: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     openToPets: {
       type: Boolean,
-      default: false
+      default: false,
     },
 
     interests: [String],
@@ -65,7 +65,7 @@ const profileSchema = new mongoose.Schema(
     personality: {
       introvert: Number,
       career: Number,
-      adventure: Number
+      adventure: Number,
     },
 
     relationshipGoal: String,
@@ -79,20 +79,17 @@ const profileSchema = new mongoose.Schema(
     bio: String,
     willingToRelocate: {
       type: Boolean,
-      default: false
+      default: false,
     },
     familyPreference: {
       type: String,
       enum: ["Nuclear", "Joint", "No Preference"],
-      default: "No Preference"
-    }
+      default: "No Preference",
+    },
   },
   {
-    timestamps: true
-  }
+    timestamps: true,
+  },
 );
 
-module.exports = mongoose.model(
-  "Profile",
-  profileSchema
-);
+module.exports = mongoose.model("Profile", profileSchema);
