@@ -2,6 +2,9 @@
 
 AI-powered matchmaking platform built with the MERN stack, combining traditional compatibility rules with LLM-based relationship insights.
 
+Frontend link : https://match-ai-xi.vercel.app/
+Backend link : https://matchai-1.onrender.com/
+
 ## Overview
 
 MatchAI helps users discover meaningful connections through:
