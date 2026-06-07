@@ -323,17 +323,27 @@ POST /api/ai/intro
 ## Screenshots
 
 ### Login
+<img width="1474" height="717" alt="image" src="https://github.com/user-attachments/assets/cbbed1e4-bb43-4fb0-a6bb-7a25c25e756c" />
+
 
 Modern authentication UI built with Tailwind CSS.
 
 ### Dashboard
+<img width="1512" height="711" alt="image" src="https://github.com/user-attachments/assets/e2305ea8-e868-4d57-b12d-59de6c8ce493" />
+
 
 * Recommended Matches
 * AI Match Scores
 * Compatibility Insights
 * Like / Pass Actions
+  <img width="1506" height="743" alt="image" src="https://github.com/user-attachments/assets/7e407832-78cd-4ad9-a4f4-58bb0e37b685" />
+  <img width="1469" height="713" alt="image" src="https://github.com/user-attachments/assets/2b9c023d-c9b4-4189-baa1-ce5d81377f72" />
+
+
 
 ### Connections
+<img width="1481" height="676" alt="image" src="https://github.com/user-attachments/assets/3e175050-25e0-47b4-8128-7225c9222f9f" />
+
 
 * Mutual Matches
 * Match History
